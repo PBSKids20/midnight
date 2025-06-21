@@ -1,0 +1,328 @@
+.workout-room-header {
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.workout-room-header h1 {
+    color: var(--accent-blue);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.workout-room-header p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.workout-container {
+    background-color: var(--midnight-blue);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.exercise-item {
+    background-color: var(--midnight-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.exercise-item:hover {
+    transform: translateX(5px);
+}
+
+.exercise-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.exercise-info h3 {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.exercise-sets {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.set-summary {
+    display: flex;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.track-set-btn {
+    background-color: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.track-set-btn:hover {
+    background-color: #2563eb;
+}
+
+.workout-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.control-btn {
+    background-color: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.control-btn:hover {
+    background-color: #2563eb;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: var(--midnight-blue);
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.close-modal:hover {
+    color: #ff4d4d;
+}
+
+/* Exercise Search Styles */
+.exercise-search {
+    margin-top: 1.5rem;
+}
+
+.exercise-search input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--midnight-light);
+    border-radius: 5px;
+    background-color: var(--midnight-dark);
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.exercise-results {
+    margin-top: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Set Tracking Styles */
+.set-tracking {
+    margin-top: 1.5rem;
+}
+
+.set-inputs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    flex: 1;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--midnight-light);
+    border-radius: 5px;
+    background-color: var(--midnight-dark);
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.set-history {
+    background-color: var(--midnight-dark);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.set-history h3 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.set-record {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--midnight-light);
+    color: var(--text-muted);
+}
+
+.set-record:last-child {
+    border-bottom: none;
+}
+
+/* Exercise Details Styles */
+.exercise-details {
+    margin-bottom: 2rem;
+    background-color: var(--midnight-dark);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    margin-bottom: 1.5rem;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.exercise-instructions {
+    color: var(--text-light);
+}
+
+.exercise-instructions h3 {
+    color: var(--accent-blue);
+    margin: 1rem 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.exercise-instructions p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .exercise-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .exercise-sets {
+        align-items: flex-start;
+    }
+
+    .set-inputs {
+        flex-direction: column;
+    }
+
+    .exercise-details {
+        padding: 1rem;
+    }
+    
+    .video-container {
+        margin-bottom: 1rem;
+    }
+    
+    .exercise-instructions h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Add Exercise Modal Exercise List Styles */
+.exercise-result-item {
+    background-color: var(--midnight-dark);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.exercise-result-item:hover {
+    background-color: var(--accent-blue);
+    color: #fff;
+    transform: translateY(-2px) scale(1.02);
+}
+
+.exercise-result-item strong {
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.exercise-result-item .difficulty {
+    background: var(--midnight-light);
+    color: var(--accent-blue);
+    border-radius: 12px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.85rem;
+    margin-left: 0.7rem;
+    text-transform: capitalize;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+.exercise-result-item:hover .difficulty {
+    background: #fff;
+    color: var(--accent-blue);
+} 

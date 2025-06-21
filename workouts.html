@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workouts - Midnight Fitness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="workouts.css">
+    <link rel="stylesheet" href="midnight-theme.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="./index.html">Midnight Fitness</a></div>
+                <div class="nav-links">
+                    <a href="./index.html">Home</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">Workouts ▼</a>
+                        <div class="dropdown-content">
+                            <a href="./workouts.html">Workouts</a>
+                            <a href="./workoutroom.html">Workout Room</a>
+                            <a href="./workout-stats.html">Workout Statistics</a>
+                        </div>
+                    </div>
+                    <a href="./macro-tracker.html">Macro Tracker</a>
+                    <a id="dashboardNavLink" href="#">Dashboard</a>
+                    <a href="./sign-in.html" class="sign-in-btn">Sign In</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="workout-header">
+            <h1>Midnight Fitness Workouts</h1>
+            <p>Click on a card to view its exercises</p>
+        </section>
+
+        <div class="workout-grid">
+            <div class="workout-card" onclick="toggleExercises(this)">
+                <div class="card-content">
+                    <h2>Upper Body Strength</h2>
+                    <p class="card-description">Build powerful arms, chest, and shoulders</p>
+                    <div class="card-actions">
+                        <span class="card-difficulty intermediate">Intermediate</span>
+                        <button class="create-plan-btn" onclick="toggleExercises(this.closest('.workout-card'))">Choose Workout</button>    
+                    </div>
+                </div>
+                <div class="exercise-list">
+                    <div class="exercise">
+                        <h3>Bench Press</h3>
+                        <p>3 sets × 8-12 reps</p>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Pull-ups</h3>
+                        <p>3 sets × 8-10 reps</p>
+                        <span class="difficulty advanced">Advanced</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Shoulder Press</h3>
+                        <p>3 sets × 10-12 reps</p>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div>
+                    <button class="choose-workout-btn" onclick="startWorkout(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workout-card" onclick="toggleExercises(this)">
+                <div class="card-content">
+                    <h2>Lower Body Power</h2>
+                    <p class="card-description">Develop strong legs and explosive power</p>
+                    <div class="card-actions">
+                        <span class="card-difficulty advanced">Advanced</span>
+                        <button class="create-plan-btn" onclick="toggleExercises(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+                <div class="exercise-list">
+                    <div class="exercise">
+                        <h3>Squats</h3>
+                        <p>4 sets × 8-10 reps</p>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Deadlifts</h3>
+                        <p>3 sets × 6-8 reps</p>
+                        <span class="difficulty advanced">Advanced</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Lunges</h3>
+                        <p>3 sets × 12 reps each leg</p>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <div>
+                    <button class="choose-workout-btn" onclick="startWorkout(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workout-card" onclick="toggleExercises(this)">
+                <div class="card-content">
+                    <h2>Core Strength</h2>
+                    <p class="card-description">Strengthen your core and improve stability</p>
+                    <div class="card-actions">
+                        <span class="card-difficulty beginner">Beginner</span>
+                        <button class="create-plan-btn" onclick="toggleExercises(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+                <div class="exercise-list">
+                    <div class="exercise">
+                        <h3>Plank</h3>
+                        <p>3 sets × 60 seconds</p>
+                        <span class="difficulty beginner">Beginner</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Russian Twists</h3>
+                        <p>3 sets × 20 reps</p>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Leg Raises</h3>
+                        <p>3 sets × 12-15 reps</p>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div>
+                    <button class="choose-workout-btn" onclick="startWorkout(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workout-card" onclick="toggleExercises(this)">
+                <div class="card-content">
+                    <h2>Cardio</h2>
+                    <p class="card-description">Boost your endurance and burn calories</p>
+                    <div class="card-actions">
+                        <span class="card-difficulty intermediate">Intermediate</span>
+                        <button class="create-plan-btn" onclick="toggleExercises(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+                <div class="exercise-list">
+                    <div class="exercise">
+                        <h3>HIIT Circuit</h3>
+                        <p>4 rounds × 30 seconds work, 30 seconds rest</p>
+                        <span class="difficulty advanced">Advanced</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Jump Rope</h3>
+                        <p>3 sets × 2 minutes</p>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div class="exercise">
+                        <h3>Mountain Climbers</h3>
+                        <p>3 sets × 45 seconds</p>
+                        <span class="difficulty intermediate">Intermediate</span>
+                    </div>
+                    <div>
+                    <button class="choose-workout-btn" onclick="startWorkout(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workout-card" onclick="toggleExercises(this)">
+                <div class="card-content">
+                    <h2>Full Package</h2>
+                    <p class="card-description">Complete body transformation program</p>
+                    <div class="card-actions">
+                        <span class="card-difficulty advanced">Advanced</span>
+                        <button class="create-plan-btn" onclick="toggleExercises(this.closest('.workout-card'))">Choose Workout</button>
+                    </div>
+                </div>
+                <div class="exercise-list">
+                    <div class="workout-section">
+                        <h3>Upper Body Circuit</h3>
+                        <p class="section-description">Build powerful arms, chest, and shoulders</p>
+                        <div class="section-exercises">
+                            <div class="exercise" data-exercise="Bench Press">
+                                <div class="exercise-header">
+                                    <h4>Bench Press</h4>
+                                    <p>3 sets × 8-12 reps</p>
+                                    <span class="difficulty intermediate">Intermediate</span>
+                                </div>
+                            </div>
+                            <div class="exercise" data-exercise="Pull-ups">
+                                <div class="exercise-header">
+                                    <h4>Pull-ups</h4>
+                                    <p>3 sets × as many as possible</p>
+                                    <span class="difficulty advanced">Advanced</span>
+                                </div>
+                            </div>
+                            <div class="exercise" data-exercise="Shoulder Press">
+                                <div class="exercise-header">
+                                    <h4>Shoulder Press</h4>
+                                    <p>3 sets × 10-12 reps</p>
+                                    <span class="difficulty intermediate">Intermediate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workout-section">
+                        <h3>Lower Body Power</h3>
+                        <p class="section-description">Develop strong legs and explosive power</p>
+                        <div class="section-exercises">
+                            <div class="exercise" data-exercise="Squats">
+                                <div class="exercise-header">
+                                    <h4>Squats</h4>
+                                    <p>4 sets × 8-10 reps</p>
+                                    <span class="difficulty intermediate">Intermediate</span>
+                                </div>
+                            </div>
+                            <div class="exercise" data-exercise="Deadlifts">
+                                <div class="exercise-header">
+                                    <h4>Deadlifts</h4>
+                                    <p>3 sets × 6-8 reps</p>
+                                    <span class="difficulty advanced">Advanced</span>
+                                </div>
+                            </div>
+                            <div class="exercise" data-exercise="Lunges">
+                                <div class="exercise-header">
+                                    <h4>Lunges</h4>
+                                    <p>3 sets × 12 reps each leg</p>
+                                    <span class="difficulty beginner">Beginner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workout-section">
+                        <h3>Core & Cardio</h3>
+                        <p class="section-description">Strengthen your core and improve cardiovascular fitness</p>
+                        <div class="section-exercises">
+                            <div class="exercise" data-exercise="Plank">
+                                <div class="exercise-header">
+                                    <h4>Plank</h4>
+                                    <p>3 sets × 60 seconds</p>
+                                    <span class="difficulty beginner">Beginner</span>
+                                </div>
+                            </div>
+                            <div class="exercise" data-exercise="Russian Twists">
+                                <div class="exercise-header">
+                                    <h4>Russian Twists</h4>
+                                    <p>3 sets × 20 reps</p>
+                                    <span class="difficulty intermediate">Intermediate</span>
+                                </div>
+                            </div>
+                            <div class="exercise" data-exercise="HIIT Circuit">
+                                <div class="exercise-header">
+                                    <h4>HIIT Circuit</h4>
+                                    <p>4 rounds</p>
+                                    <span class="difficulty advanced">Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="choose-workout-btn" onclick="startWorkout(this.closest('.workout-card'))">Choose Workout</button>
+                </div>
+            </div>
+
+            <div class="workout-card" onclick="toggleExercises(this)">
+                <div class="card-content">
+                    <h2>Custom Plan</h2>
+                    <p class="card-description">Create your own personalized workout plan</p>
+                    <button class="create-plan-btn" onclick="openCustomPlanModal(event)">Create Custom Workout</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Exercise Modal -->
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalExerciseName"></h2>
+            <div class="exercise-details">
+                <div class="detail-section">
+                    <h3>Video Demonstration</h3>
+                    <div class="video-container">
+                        <iframe id="modalVideoFrame" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>Instructions</h3>
+                    <p id="modalInstructions"></p>
+                </div>
+                <div class="detail-section">
+                    <h3>Sets & Reps</h3>
+                    <p id="modalSetsReps"></p>
+                </div>
+                <div class="detail-section">
+                    <h3>Tips</h3>
+                    <p id="modalTips"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Plan Modal -->
+    <div id="customPlanModal" class="modal">
+        <div class="modal-content custom-plan-modal">
+            <span class="close-modal" onclick="closeCustomPlanModal()">&times;</span>
+            <h2>Create Your Custom Workout Plan</h2>
+            <div class="custom-plan-container">
+                <div class="exercise-options">
+                    <div class="exercise-option" data-exercise="Bench Press">
+                        <div class="exercise-header">
+                            <span>Bench Press</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Bench Press', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Push-ups">
+                        <div class="exercise-header">
+                            <span>Push-ups</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Push-ups', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="15" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Pull-ups">
+                        <div class="exercise-header">
+                            <span>Pull-ups</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Pull-ups', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="10" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Dumbbell Rows">
+                        <div class="exercise-header">
+                            <span>Dumbbell Rows</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Dumbbell Rows', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Shoulder Press">
+                        <div class="exercise-header">
+                            <span>Shoulder Press</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Shoulder Press', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Bicep Curls">
+                        <div class="exercise-header">
+                            <span>Bicep Curls</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Bicep Curls', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="15" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Tricep Dips">
+                        <div class="exercise-header">
+                            <span>Tricep Dips</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Tricep Dips', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Squats">
+                        <div class="exercise-header">
+                            <span>Squats</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Squats', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="4" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="10" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Deadlifts">
+                        <div class="exercise-header">
+                            <span>Deadlifts</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Deadlifts', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="8" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Lunges">
+                        <div class="exercise-header">
+                            <span>Lunges</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Lunges', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Box Jumps">
+                        <div class="exercise-header">
+                            <span>Box Jumps</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Box Jumps', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="10" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Kettlebell Swings">
+                        <div class="exercise-header">
+                            <span>Kettlebell Swings</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Kettlebell Swings', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="15" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Plank">
+                        <div class="exercise-header">
+                            <span>Plank</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Plank', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Seconds:</label>
+                                <input type="number" min="10" max="300" value="60" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Russian Twists">
+                        <div class="exercise-header">
+                            <span>Russian Twists</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Russian Twists', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="20" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Leg Raises">
+                        <div class="exercise-header">
+                            <span>Leg Raises</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Leg Raises', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="15" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Battle Ropes">
+                        <div class="exercise-header">
+                            <span>Battle Ropes</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Battle Ropes', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Seconds:</label>
+                                <input type="number" min="10" max="300" value="30" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Medicine Ball Slams">
+                        <div class="exercise-header">
+                            <span>Medicine Ball Slams</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Medicine Ball Slams', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="10" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Burpees">
+                        <div class="exercise-header">
+                            <span>Burpees</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Burpees', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="10" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Bear Crawls">
+                        <div class="exercise-header">
+                            <span>Bear Crawls</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Bear Crawls', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Seconds:</label>
+                                <input type="number" min="10" max="300" value="20" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Wall Balls">
+                        <div class="exercise-header">
+                            <span>Wall Balls</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Wall Balls', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Rope Climbs">
+                        <div class="exercise-header">
+                            <span>Rope Climbs</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Rope Climbs', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Climbs:</label>
+                                <input type="number" min="1" max="10" value="2" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Sled Pushes">
+                        <div class="exercise-header">
+                            <span>Sled Pushes</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Sled Pushes', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Meters:</label>
+                                <input type="number" min="5" max="100" value="20" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Farmer's Walk">
+                        <div class="exercise-header">
+                            <span>Farmer's Walk</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Farmer\'s Walk', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Meters:</label>
+                                <input type="number" min="5" max="100" value="20" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="HIIT Circuit">
+                        <div class="exercise-header">
+                            <span>HIIT Circuit</span>
+                            <button class="info-btn" onclick="showExerciseInfo('HIIT Circuit', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Rounds:</label>
+                                <input type="number" min="1" max="10" value="4" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Work/Rest:</label>
+                                <input type="number" min="10" max="120" value="30" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Jump Rope">
+                        <div class="exercise-header">
+                            <span>Jump Rope</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Jump Rope', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Minutes:</label>
+                                <input type="number" min="1" max="30" value="2" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Mountain Climbers">
+                        <div class="exercise-header">
+                            <span>Mountain Climbers</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Mountain Climbers', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Seconds:</label>
+                                <input type="number" min="10" max="300" value="45" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Romanian Deadlifts (RDL)">
+                        <div class="exercise-header">
+                            <span>Romanian Deadlifts</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Romanian Deadlifts (RDL)', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="10" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Bulgarian Split Squats">
+                        <div class="exercise-header">
+                            <span>Bulgarian Split Squats</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Bulgarian Split Squats', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="10" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Face Pulls">
+                        <div class="exercise-header">
+                            <span>Face Pulls</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Face Pulls', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="15" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Lateral Raises">
+                        <div class="exercise-header">
+                            <span>Lateral Raises</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Lateral Raises', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Hammer Curls">
+                        <div class="exercise-header">
+                            <span>Hammer Curls</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Hammer Curls', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Skull Crushers">
+                        <div class="exercise-header">
+                            <span>Skull Crushers</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Skull Crushers', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Calf Raises">
+                        <div class="exercise-header">
+                            <span>Calf Raises</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Calf Raises', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="15" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Reverse Flyes">
+                        <div class="exercise-header">
+                            <span>Reverse Flyes</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Reverse Flyes', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Front Raises">
+                        <div class="exercise-header">
+                            <span>Front Raises</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Front Raises', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="12" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-option" data-exercise="Shrugs">
+                        <div class="exercise-header">
+                            <span>Shrugs</span>
+                            <button class="info-btn" onclick="showExerciseInfo('Shrugs', event)">ℹ️</button>
+                        </div>
+                        <div class="exercise-settings">
+                            <div class="setting-group">
+                                <label>Sets:</label>
+                                <input type="number" min="1" max="10" value="3" class="sets-input">
+                            </div>
+                            <div class="setting-group">
+                                <label>Reps:</label>
+                                <input type="number" min="1" max="100" value="15" class="reps-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-plan-actions">
+                    <button class="create-plan-btn" onclick="createCustomPlan(event)">Create Workout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Plan Preview Modal -->
+    <div id="customPlanPreviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCustomPlanPreviewModal()">&times;</span>
+            <h2>Your Custom Workout Plan</h2>
+            <div class="custom-plan-details">
+                <div id="selectedExercises"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    // Exercise data
+    const exerciseData = {
+        'Bench Press': {
+            instructions: 'Lie on a flat bench. Grip the bar slightly wider than shoulder-width. Lower the bar to your mid-chest, then push it back up until your arms are straight.',
+            setsReps: '3 sets × 8-12 reps',
+            tips: 'Keep your feet flat on the ground. Maintain a slight arch in your lower back. Don\'t bounce the bar off your chest.',
+            video: 'https://www.youtube.com/embed/rT7DgCr-3pg',
+            difficulty: 'intermediate'
+        },
+        'Push-ups': {
+            instructions: 'Start in a plank position with hands slightly wider than shoulder-width. Lower your body until your chest nearly touches the floor, then push back up.',
+            setsReps: '3 sets × 10-15 reps',
+            tips: 'Keep your body in a straight line. Don\'t let your hips sag. Breathe out as you push up.',
+            video: 'https://www.youtube.com/embed/IODxDxX7oi4',
+            difficulty: 'beginner'
+        },
+        'Pull-ups': {
+            instructions: 'Grab the pull-up bar with hands slightly wider than shoulder-width. Pull yourself up until your chin is over the bar, then lower back down with control.',
+            setsReps: '3 sets × 8-10 reps',
+            tips: 'Keep your core tight. Don\'t swing your body. Focus on using your back muscles.',
+            video: 'https://www.youtube.com/embed/eGo4IYlbE5g',
+            difficulty: 'advanced'
+        },
+        'Dumbbell Rows': {
+            instructions: 'Place one hand and knee on a bench. Hold a dumbbell in the other hand. Pull the dumbbell up to your hip, then lower with control.',
+            setsReps: '3 sets × 12 reps each side',
+            tips: 'Keep your back straight. Don\'t rotate your torso. Squeeze your shoulder blade at the top.',
+            video: 'https://www.youtube.com/embed/roCP6wCXPqo',
+            difficulty: 'intermediate'
+        },
+        'Shoulder Press': {
+            instructions: 'Stand with feet shoulder-width apart. Hold dumbbells at shoulder height. Press the weights overhead until arms are straight, then lower back down.',
+            setsReps: '3 sets × 10-12 reps',
+            tips: 'Keep your core tight. Don\'t arch your back. Breathe out as you press up.',
+            video: 'https://www.youtube.com/embed/qEwKCR5JCog',
+            difficulty: 'intermediate'
+        },
+        'Bicep Curls': {
+            instructions: 'Stand with feet shoulder-width apart. Hold dumbbells at your sides. Curl the weights up to your shoulders, then lower with control.',
+            setsReps: '3 sets × 15 reps',
+            tips: 'Keep your elbows close to your body. Don\'t swing the weights. Squeeze at the top.',
+            video: 'https://www.youtube.com/embed/ykJmrZ5v0Oo',
+            difficulty: 'beginner'
+        },
+        'Tricep Dips': {
+            instructions: 'Use parallel bars or a bench. Lower your body by bending your elbows, then push back up to starting position.',
+            setsReps: '3 sets × 10-12 reps',
+            tips: 'Keep your elbows close to your body. Don\'t let your shoulders shrug. Control the movement.',
+            video: 'https://www.youtube.com/embed/6kALZikXxLc',
+            difficulty: 'intermediate'
+        },
+        'Squats': {
+            instructions: 'Stand with feet shoulder-width apart. Lower your body by bending your knees and hips, then push back up to standing.',
+            setsReps: '4 sets × 8-10 reps',
+            tips: 'Keep your chest up. Don\'t let your knees cave inward. Go as low as comfortable.',
+            video: 'https://www.youtube.com/embed/Uv_DKDl7EjA',
+            difficulty: 'intermediate'
+        },
+        'Deadlifts': {
+            instructions: 'Stand with feet hip-width apart. Bend at hips and knees to grab the bar. Stand up by pushing through your heels.',
+            setsReps: '3 sets × 6-8 reps',
+            tips: 'Keep your back straight. Don\'t round your shoulders. Drive through your heels.',
+            video: 'https://www.youtube.com/embed/op9kVnSso6Q',
+            difficulty: 'advanced'
+        },
+        'Lunges': {
+            instructions: 'Stand with feet together. Step forward with one leg and lower until both knees are bent at 90 degrees. Push back to start.',
+            setsReps: '3 sets × 12 reps each leg',
+            tips: 'Keep your torso upright. Don\'t let your front knee go past your toes. Step back to starting position.',
+            video: 'https://www.youtube.com/embed/QOVaHwm-Q6U',
+            difficulty: 'beginner'
+        },
+        'Box Jumps': {
+            instructions: 'Stand facing a sturdy box or platform. Jump onto the box, landing softly with both feet. Step back down and repeat.',
+            setsReps: '3 sets × 8-10 reps',
+            tips: 'Land softly on the box. Don\'t let your knees cave inward. Use your arms to help with momentum.',
+            video: 'https://www.youtube.com/embed/kNIInK_Le8I',
+            difficulty: 'intermediate'
+        },
+        'Kettlebell Swings': {
+            instructions: 'Stand with feet shoulder-width apart. Hold kettlebell with both hands. Swing it between your legs, then up to chest height.',
+            setsReps: '3 sets × 15 reps',
+            tips: 'Use your hips to generate power. Don\'t use your arms to lift. Keep your back straight.',
+            video: 'https://www.youtube.com/embed/YSxHifyI6s8',
+            difficulty: 'intermediate'
+        },
+        'Plank': {
+            instructions: 'Start in a push-up position, then lower onto your forearms. Keep your body in a straight line from head to heels.',
+            setsReps: '3 sets × 60 seconds',
+            tips: 'Keep your core tight. Don\'t let your hips sag. Breathe normally.',
+            video: 'https://www.youtube.com/embed/pSHjTRCQxIw',
+            difficulty: 'beginner'
+        },
+        'Russian Twists': {
+            instructions: 'Sit on the floor with knees bent. Lean back slightly and twist your torso from side to side.',
+            setsReps: '3 sets × 20 reps',
+            tips: 'Keep your back straight. Don\'t round your shoulders. Move with control.',
+            video: 'https://www.youtube.com/embed/wkD8rjkodUI',
+            difficulty: 'intermediate'
+        },
+        'Leg Raises': {
+            instructions: 'Lie on your back with hands under your hips. Raise your legs straight up, then lower them back down with control.',
+            setsReps: '3 sets × 12-15 reps',
+            tips: 'Keep your lower back pressed to the floor. Don\'t swing your legs. Control the movement.',
+            video: 'https://www.youtube.com/embed/JB2oyawG9KI',
+            difficulty: 'beginner'
+        },
+        'Battle Ropes': {
+            instructions: 'Stand with feet shoulder-width apart. Hold the ends of battle ropes. Create waves by moving your arms up and down or side to side.',
+            setsReps: '3 sets × 30 seconds',
+            tips: 'Keep your core engaged. Don\'t let your back round. Vary the movement patterns.',
+            video: 'https://www.youtube.com/embed/_nkQ9ej1CFs',
+            difficulty: 'intermediate'
+        },
+        'Medicine Ball Slams': {
+            instructions: 'Stand with feet shoulder-width apart. Hold a medicine ball overhead. Slam it down to the ground with force, then catch it on the bounce.',
+            setsReps: '3 sets × 10 reps',
+            tips: 'Use your whole body. Don\'t just use your arms. Keep your core tight.',
+            video: 'https://www.youtube.com/embed/QxYhFwMd1Ks',
+            difficulty: 'beginner'
+        },
+        'Burpees': {
+            instructions: 'Start standing. Drop into a push-up position, do a push-up, jump feet forward, then jump up with arms overhead.',
+            setsReps: '3 sets × 10 reps',
+            tips: 'Keep your core tight. Don\'t let your back sag. Move with control.',
+            video: 'https://www.youtube.com/embed/TU8QYVW0gDU',
+            difficulty: 'beginner'
+        },
+        'Bear Crawls': {
+            instructions: 'Start on hands and knees. Lift knees slightly off ground. Move forward by moving opposite hand and foot together.',
+            setsReps: '3 sets × 20 seconds',
+            tips: 'Keep your hips low. Don\'t let your back sag. Move with control.',
+            video: 'https://www.youtube.com/embed/Gb2e9edK8a4',
+            difficulty: 'beginner'
+        },
+        'Wall Balls': {
+            instructions: 'Stand facing a wall. Hold a medicine ball at chest height. Squat down, then throw the ball up to hit a target on the wall.',
+            setsReps: '3 sets × 12 reps',
+            tips: 'Use your legs to generate power. Don\'t just use your arms. Catch the ball in a squat position.',
+            video: 'https://www.youtube.com/embed/ryJoFCMNIr8',
+            difficulty: 'intermediate'
+        },
+        'Rope Climbs': {
+            instructions: 'Grab a climbing rope with both hands. Use your legs to help pull yourself up. Control your descent.',
+            setsReps: '3 sets × 2-3 climbs',
+            tips: 'Use your legs to help. Don\'t just pull with your arms. Wrap the rope around your feet for support.',
+            video: 'https://www.youtube.com/embed/xIIkZd9A30E',
+            difficulty: 'intermediate'
+        },
+        'Sled Pushes': {
+            instructions: 'Load a sled with weight. Push it forward using short, quick steps. Keep your chest up and core tight.',
+            setsReps: '3 sets × 20 meters',
+            tips: 'Stay low and drive with your legs. Don\'t let your back round. Keep your head up.',
+            video: 'https://www.youtube.com/embed/9XRRXaUpnLk',
+            difficulty: 'intermediate'
+        },
+        'Farmer\'s Walk': {
+            instructions: 'Hold heavy dumbbells or kettlebells at your sides. Walk forward while maintaining good posture.',
+            setsReps: '3 sets × 20 meters',
+            tips: 'Keep your shoulders back. Don\'t let the weights pull you forward. Breathe normally.',
+            video: 'https://www.youtube.com/embed/NH7Xv-7NQNQ',
+            difficulty: 'beginner'
+        },
+        'HIIT Circuit': {
+            instructions: 'Perform each exercise for 30 seconds, then rest for 30 seconds. Complete 4 rounds of the circuit.',
+            setsReps: '4 rounds',
+            tips: 'Keep your form tight. Don\'t sacrifice form for speed. Rest when needed.',
+            video: 'https://www.youtube.com/embed/5O1TTduK6mw',
+            difficulty: 'advanced'
+        },
+        'Jump Rope': {
+            instructions: 'Hold the rope handles and jump over the rope as it passes under your feet. Keep your jumps small and controlled.',
+            setsReps: '3 sets × 2 minutes',
+            tips: 'Keep your elbows close to your body. Don\'t jump too high. Land softly.',
+            video: 'https://www.youtube.com/embed/1BZM2Vre5oc',
+            difficulty: 'intermediate'
+        },
+        'Mountain Climbers': {
+            instructions: 'Start in a push-up position. Alternate bringing your knees to your chest in a running motion.',
+            setsReps: '3 sets × 45 seconds',
+            tips: 'Keep your core tight. Don\'t let your hips rise. Move with control.',
+            video: 'https://www.youtube.com/embed/nmwgirgXLYM',
+            difficulty: 'intermediate'
+        },
+        'Romanian Deadlifts (RDL)': {
+            instructions: 'Stand with feet hip-width apart. Hold a barbell in front of your thighs. Hinge at your hips, keeping your back straight, and lower the bar along your legs.',
+            setsReps: '3 sets × 10-12 reps',
+            tips: 'Keep your back straight. Don\'t round your shoulders. Feel the stretch in your hamstrings.',
+            video: 'https://www.youtube.com/embed/JCXUYuzwNrM',
+            difficulty: 'intermediate'
+        },
+        'Bulgarian Split Squats': {
+            instructions: 'Stand with one foot on a bench behind you. Lower your body until your front thigh is parallel to the ground, then push back up.',
+            setsReps: '3 sets × 10 reps each leg',
+            tips: 'Keep your torso upright. Don\'t let your front knee go past your toes. Focus on balance.',
+            video: 'https://www.youtube.com/embed/2C-uNgKwPLE',
+            difficulty: 'intermediate'
+        },
+        'Face Pulls': {
+            instructions: 'Stand facing a cable machine. Grab the rope attachment and pull it towards your face, separating the rope at the end.',
+            setsReps: '3 sets × 15 reps',
+            tips: 'Keep your elbows high. Don\'t use momentum. Squeeze your shoulder blades together.',
+            video: 'https://www.youtube.com/embed/rep-qVOkqgk',
+            difficulty: 'intermediate'
+        },
+        'Lateral Raises': {
+            instructions: 'Stand with feet shoulder-width apart. Hold dumbbells at your sides. Raise your arms out to the sides until they\'re parallel to the ground.',
+            setsReps: '3 sets × 12-15 reps',
+            tips: 'Keep a slight bend in your elbows. Don\'t swing the weights. Control the movement.',
+            video: 'https://www.youtube.com/embed/3VcKaXpzqRo',
+            difficulty: 'beginner'
+        },
+        'Hammer Curls': {
+            instructions: 'Stand with feet shoulder-width apart. Hold dumbbells with palms facing each other. Curl the weights up to your shoulders.',
+            setsReps: '3 sets × 12 reps',
+            tips: 'Keep your elbows close to your body. Don\'t swing the weights. Squeeze at the top.',
+            video: 'https://www.youtube.com/embed/zC3nLlEvin4',
+            difficulty: 'beginner'
+        },
+        'Skull Crushers': {
+            instructions: 'Lie on a bench. Hold a barbell or dumbbells above your chest. Lower the weight towards your forehead, then extend your arms.',
+            setsReps: '3 sets × 12 reps',
+            tips: 'Keep your elbows stable. Don\'t let them flare out. Control the movement.',
+            video: 'https://www.youtube.com/embed/d_KZxkY_0cM',
+            difficulty: 'beginner'
+        },
+        'Calf Raises': {
+            instructions: 'Stand on a step or platform with your heels hanging off. Raise your heels as high as possible, then lower them below the step.',
+            setsReps: '3 sets × 15-20 reps',
+            tips: 'Keep your knees straight. Don\'t bounce. Control the movement.',
+            video: 'https://www.youtube.com/embed/-qsRtp_PbVM',
+            difficulty: 'beginner'
+        },
+        'Reverse Flyes': {
+            instructions: 'Stand with feet shoulder-width apart. Hold dumbbells in front of you. Raise your arms out to the sides, squeezing your shoulder blades together.',
+            setsReps: '3 sets × 12-15 reps',
+            tips: 'Keep a slight bend in your elbows. Don\'t use momentum. Focus on the squeeze.',
+            video: 'https://www.youtube.com/embed/lPt0GqwaqEw',
+            difficulty: 'beginner'
+        },
+        'Front Raises': {
+            instructions: 'Stand with feet shoulder-width apart. Hold dumbbells in front of your thighs. Raise your arms straight up until they\'re parallel to the ground.',
+            setsReps: '3 sets × 12 reps',
+            tips: 'Keep a slight bend in your elbows. Don\'t swing the weights. Control the movement.',
+            video: 'https://www.youtube.com/embed/gzDawZwDC6Y',
+            difficulty: 'beginner'
+        },
+        'Shrugs': {
+            instructions: 'Stand with feet shoulder-width apart. Hold dumbbells at your sides. Raise your shoulders up towards your ears, then lower them back down.',
+            setsReps: '3 sets × 12-15 reps',
+            tips: 'Keep your arms straight. Don\'t roll your shoulders. Squeeze at the top.',
+            video: 'https://www.youtube.com/embed/xDt6qbKgLkY',
+            difficulty: 'beginner'
+        }
+    };
+
+    function toggleExercises(card) {
+        const exerciseList = card.querySelector('.exercise-list');
+        const cardContent = card.querySelector('.card-content');
+        
+        card.classList.toggle('active');
+        
+        if (card.classList.contains('active')) {
+            exerciseList.style.display = 'flex';
+            cardContent.style.display = 'none';
+        } else {
+            exerciseList.style.display = 'none';
+            cardContent.style.display = 'block';
+        }
+    }
+
+    // Add click event to all exercises
+    document.querySelectorAll('.exercise').forEach(exercise => {
+        exercise.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent card toggle
+            const exerciseName = this.querySelector('h3, h4').textContent;
+            const exerciseInfo = exerciseData[exerciseName];
+            
+            if (exerciseInfo) {
+                document.getElementById('modalExerciseName').textContent = exerciseName;
+                document.getElementById('modalInstructions').textContent = exerciseInfo.instructions;
+                document.getElementById('modalSetsReps').textContent = exerciseInfo.setsReps;
+                document.getElementById('modalTips').textContent = exerciseInfo.tips;
+                document.getElementById('modalVideoFrame').src = exerciseInfo.video;
+                document.getElementById('exerciseModal').style.display = 'block';
+            }
+        });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('exerciseModal');
+    const closeBtn = document.querySelector('.close-modal');
+
+    // Close modal when clicking the X
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.getElementById('modalVideoFrame').src = ''; // Stop video when closing
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.getElementById('modalVideoFrame').src = ''; // Stop video when closing
+        }
+    });
+
+    // Track selected exercises with their settings
+    let selectedExercises = new Map();
+
+    // Add click event to exercise options
+    document.querySelectorAll('.exercise-option').forEach(option => {
+        // Handle clicks on the exercise option
+        option.addEventListener('click', function(e) {
+            // Don't toggle if clicking inputs or their labels
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') {
+                return;
+            }
+            e.stopPropagation();
+            const exercise = this.dataset.exercise;
+            
+            if (this.classList.contains('selected')) {
+                this.classList.remove('selected');
+                selectedExercises.delete(exercise);
+            } else {
+                this.classList.add('selected');
+                const sets = this.querySelector('.sets-input').value;
+                const reps = this.querySelector('.reps-input').value;
+                selectedExercises.set(exercise, { sets, reps });
+            }
+        });
+
+        // Handle input changes separately
+        option.querySelectorAll('input').forEach(input => {
+            input.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            input.addEventListener('change', function(e) {
+                e.stopPropagation();
+                const exercise = this.closest('.exercise-option').dataset.exercise;
+                if (selectedExercises.has(exercise)) {
+                    const sets = option.querySelector('.sets-input').value;
+                    const reps = option.querySelector('.reps-input').value;
+                    selectedExercises.set(exercise, { sets, reps });
+                }
+            });
+        });
+    });
+
+    function openCustomPlanModal(event) {
+        event.stopPropagation();
+        document.getElementById('customPlanModal').style.display = 'block';
+    }
+
+    function closeCustomPlanModal() {
+        document.getElementById('customPlanModal').style.display = 'none';
+    }
+
+    function closeCustomPlanPreviewModal() {
+        document.getElementById('customPlanPreviewModal').style.display = 'none';
+    }
+
+    function createCustomPlan(event) {
+        event.stopPropagation();
+        
+        if (selectedExercises.size === 0) {
+            alert('Please select at least one exercise');
+            return;
+        }
+
+        // Create workout data from selected exercises
+        const workoutData = {
+            name: "Custom Workout",
+            exercises: Array.from(selectedExercises.entries()).map(([exercise, settings]) => {
+                const exerciseInfo = exerciseData[exercise];
+                return {
+                    name: exercise,
+                    difficulty: exerciseInfo.difficulty,
+                    sets: settings.sets,
+                    reps: settings.reps
+                };
+            })
+        };
+
+        // Store workout data in localStorage
+        localStorage.setItem('currentWorkout', JSON.stringify(workoutData));
+
+        // Navigate to workout room
+        window.location.href = 'workoutroom.html';
+    }
+
+    // Initialize all cards to show content and hide exercises
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.workout-card');
+        cards.forEach(card => {
+            const exerciseList = card.querySelector('.exercise-list');
+            const cardContent = card.querySelector('.card-content');
+            exerciseList.style.display = 'none';
+            cardContent.style.display = 'block';
+        });
+    });
+
+    function showExerciseInfo(exerciseName, event) {
+        event.stopPropagation();
+        const exerciseInfo = exerciseData[exerciseName];
+        
+        if (exerciseInfo) {
+            document.getElementById('modalExerciseName').textContent = exerciseName;
+            document.getElementById('modalInstructions').textContent = exerciseInfo.instructions;
+            document.getElementById('modalSetsReps').textContent = exerciseInfo.setsReps;
+            document.getElementById('modalTips').textContent = exerciseInfo.tips;
+            document.getElementById('modalVideoFrame').src = exerciseInfo.video;
+            document.getElementById('exerciseModal').style.display = 'block';
+        }
+    }
+
+    // Update all exercise options to include the info button
+    document.querySelectorAll('.exercise-option').forEach(option => {
+        const exerciseName = option.dataset.exercise;
+        const header = option.querySelector('.exercise-header') || option.querySelector('span').parentNode;
+        
+        if (!header.classList.contains('exercise-header')) {
+            const span = header.querySelector('span');
+            header.innerHTML = `
+                <span>${span.textContent}</span>
+                <button class="info-btn" onclick="showExerciseInfo('${exerciseName}', event)">ℹ️</button>
+            `;
+            header.classList.add('exercise-header');
+        }
+    });
+
+    function startWorkout(workoutCard) {
+        // Get workout data from the card
+        const workoutName = workoutCard.querySelector('h2').textContent;
+        const exercises = Array.from(workoutCard.querySelectorAll('.exercise')).map(exercise => {
+            const name = exercise.querySelector('h3, h4').textContent;
+            const difficulty = exercise.querySelector('.difficulty').textContent.toLowerCase();
+            const setsReps = exercise.querySelector('p').textContent;
+            const [sets, reps] = setsReps.split('×').map(s => s.trim());
+            
+            return {
+                name: name,
+                difficulty: difficulty,
+                sets: sets,
+                reps: reps
+            };
+        });
+
+        // Store workout data in localStorage
+        localStorage.setItem('currentWorkout', JSON.stringify({
+            name: workoutName,
+            exercises: exercises
+        }));
+
+        // Navigate to workout room
+        window.location.href = 'workoutroom.html';
+    }
+
+    // User dropdown logic for navbar and dashboard nav link
+    (function() {
+        const navLinks = document.querySelector('.nav-links');
+        const userInfo = JSON.parse(localStorage.getItem('userInfo') || 'null');
+        const signInBtn = navLinks.querySelector('.sign-in-btn');
+        // Set Dashboard nav link based on sign-in status
+        const dashboardNavLink = document.getElementById('dashboardNavLink');
+        if (userInfo && userInfo.email) {
+            dashboardNavLink.setAttribute('href', './dashboard.html');
+        } else {
+            dashboardNavLink.setAttribute('href', './sign-in.html');
+        }
+        if (userInfo && userInfo.email) {
+            if (signInBtn) navLinks.removeChild(signInBtn);
+            const userDropdown = document.createElement('div');
+            userDropdown.className = 'user-dropdown';
+            userDropdown.innerHTML = `
+                <button class="user-dropbtn">${userInfo.username ? userInfo.username : (userInfo.name ? userInfo.name : userInfo.email)} ▼</button>
+                <div class="user-dropdown-content">
+                    <a href="#">Email: ${userInfo.email}</a>
+                    <a href="#" id="logoutBtn">Sign Out</a>
+                    <a href="#" id="deleteAccountBtn" class="delete-account-btn">Delete Account</a>
+                </div>
+            `;
+            navLinks.appendChild(userDropdown);
+            document.getElementById('logoutBtn').onclick = function() {
+                localStorage.removeItem('userInfo');
+                window.location.href = './index.html';
+            };
+            document.getElementById('deleteAccountBtn').onclick = async function() {
+                const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+                if (confirmation) {
+                    try {
+                        const response = await fetch('http://localhost:3000/api/delete-account', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: userInfo.email })
+                        });
+                        const data = await response.json();
+                        if (data.success) {
+                            alert('Account deleted successfully.');
+                            localStorage.removeItem('userInfo');
+                            window.location.href = './index.html';
+                        } else {
+                            throw new Error(data.message);
+                        }
+                    } catch (error) {
+                        alert('Error deleting account: ' + error.message);
+                    }
+                }
+            };
+        } else {
+            if (!signInBtn) {
+                const btn = document.createElement('a');
+                btn.href = './sign-in.html';
+                btn.className = 'sign-in-btn';
+                btn.textContent = 'Sign In';
+                navLinks.appendChild(btn);
+            }
+        }
+    })();
+    </script>
+</body>
+</html> 

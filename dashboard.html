@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Midnight Fitness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="midnight-theme.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="./index.html">Midnight Fitness</a></div>
+                <div class="nav-links" id="navLinks">
+                    <a href="./index.html">Home</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">Workouts ▼</a>
+                        <div class="dropdown-content">
+                            <a href="./workouts.html">Workouts</a>
+                            <a href="./workoutroom.html">Workout Room</a>
+                            <a href="./workout-stats.html">Workout Statistics</a>
+                        </div>
+                    </div>
+                    <a href="./macro-tracker.html">Macro Tracker</a>
+                    <a id="dashboardNavLink" href="#">Dashboard</a>
+                    <!-- User dropdown will be injected here -->
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <div class="dashboard-header">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <div class="user-info">
+                <h2 id="welcomeName">Welcome, User!</h2>
+                <p id="welcomeEmail">user@email.com</p>
+            </div>
+        </div>
+        <div class="stats-container">
+            <section class="pr-section">
+                <div class="pr-title">Personal Records (P.R.s)</div>
+                <div class="pr-list" id="prList"></div>
+            </section>
+            <section class="graph-section">
+                <div class="graph-title">Workouts Completed (Last 7 Days)</div>
+                <div id="workoutCountGraphContainer"></div>
+            </section>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    // User info for dashboard header and nav logic
+    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    document.getElementById('welcomeName').textContent = `Welcome, ${userInfo.username || userInfo.name || 'User'}!`;
+    document.getElementById('welcomeEmail').textContent = userInfo.email || '';
+    document.getElementById('userAvatar').textContent = (userInfo.username ? userInfo.username[0] : (userInfo.name ? userInfo.name[0] : (userInfo.email ? userInfo.email[0] : 'U'))).toUpperCase();
+
+    // Use user-specific keys for workout data
+    function getExerciseHistory() {
+        if (!userInfo.email) return {};
+        return JSON.parse(localStorage.getItem('exerciseHistory_' + userInfo.email) || '{}');
+    }
+    function getWorkoutLog() {
+        if (!userInfo.email) return [];
+        return JSON.parse(localStorage.getItem('workoutLog_' + userInfo.email) || '[]');
+    }
+    // Find PR for each exercise
+    function getPR(sets) {
+        if (!sets || sets.length === 0) return null;
+        return sets.reduce((pr, set) => set.weight > pr.weight ? set : pr, sets[0]);
+    }
+    // Render PR cards
+    function renderPRs() {
+        const history = getExerciseHistory();
+        const prList = document.getElementById('prList');
+        prList.innerHTML = '';
+        Object.keys(history).forEach(exercise => {
+            const pr = getPR(history[exercise]);
+            if (pr) {
+                const prCard = document.createElement('div');
+                prCard.className = 'pr-card';
+                prCard.innerHTML = `<strong>${exercise}</strong>: ${pr.weight} lbs x ${pr.reps} reps`;
+                prList.appendChild(prCard);
+            }
+        });
+    }
+    // Render workout count graph
+    function renderWorkoutCountGraph() {
+        const log = getWorkoutLog();
+        const days = 7;
+        const today = new Date();
+        const labels = [];
+        const data = [];
+        for (let i = days - 1; i >= 0; i--) {
+            const d = new Date(today);
+            d.setDate(today.getDate() - i);
+            const label = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+            labels.push(label);
+            let count = 0;
+            log.forEach(dateStr => {
+                const setDate = new Date(dateStr);
+                if (setDate.toDateString() === d.toDateString()) {
+                    count++;
+                }
+            });
+            data.push(count);
+        }
+        const ctxContainer = document.getElementById('workoutCountGraphContainer');
+        ctxContainer.innerHTML = '<canvas id="workoutCountGraph"></canvas>';
+        const ctx = document.getElementById('workoutCountGraph').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Workouts',
+                    data: data,
+                    backgroundColor: 'rgba(58, 134, 255, 0.7)',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true, precision: 0 }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
+    renderPRs();
+    renderWorkoutCountGraph();
+    </script>
+    <script>
+        // User dropdown logic for navbar
+        (function() {
+            const navLinks = document.querySelector('.nav-links');
+            const userInfo = JSON.parse(localStorage.getItem('userInfo') || 'null');
+            const signInBtn = navLinks.querySelector('.sign-in-btn');
+            if (userInfo && userInfo.email) {
+                if (signInBtn) navLinks.removeChild(signInBtn);
+                const userDropdown = document.createElement('div');
+                userDropdown.className = 'user-dropdown';
+                userDropdown.innerHTML = `
+                    <button class="user-dropbtn">${userInfo.username || userInfo.name || 'User'} ▼</button>
+                    <div class="user-dropdown-content">
+                        <a href="#">Email: ${userInfo.email}</a>
+                        <a href="#" id="logoutBtn">Sign Out</a>
+                        <a href="#" id="deleteAccountBtn" class="delete-account-btn">Delete Account</a>
+                    </div>
+                `;
+                navLinks.appendChild(userDropdown);
+                document.getElementById('logoutBtn').onclick = function() {
+                    localStorage.removeItem('userInfo');
+                    window.location.href = './index.html';
+                };
+                document.getElementById('deleteAccountBtn').onclick = async function() {
+                    const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+                    if (confirmation) {
+                        try {
+                            // Note: You'll need to implement this endpoint on your backend.
+                            const response = await fetch('http://localhost:3000/api/delete-account', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email: userInfo.email })
+                            });
+                            const data = await response.json();
+                            if (data.success) {
+                                alert('Account deleted successfully.');
+                                localStorage.removeItem('userInfo');
+                                window.location.href = './index.html';
+                            } else {
+                                throw new Error(data.message);
+                            }
+                        } catch (error) {
+                            alert('Error deleting account: ' + error.message);
+                        }
+                    }
+                };
+            } else {
+                if (!signInBtn) {
+                    const btn = document.createElement('a');
+                    btn.href = './sign-in.html';
+                    btn.className = 'sign-in-btn';
+                    btn.textContent = 'Sign In';
+                    navLinks.appendChild(btn);
+                }
+            }
+        })();
+    </script>
+    <script>
+    // Set Dashboard nav link based on sign-in status
+    const dashboardNavLink = document.getElementById('dashboardNavLink');
+    if (userInfo && userInfo.email) {
+        dashboardNavLink.setAttribute('href', './dashboard.html');
+    } else {
+        dashboardNavLink.setAttribute('href', './sign-in.html');
+    }
+    </script>
+</body>
+</html> 

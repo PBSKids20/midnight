@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Fitness - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="midnight-theme.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="./index.html">Midnight Fitness</a></div>
+                <div class="nav-links">
+                    <a href="./index.html">Home</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">Workouts ▼</a>
+                        <div class="dropdown-content">
+                            <a href="./workouts.html">Workouts</a>
+                            <a href="./workoutroom.html">Workout Room</a>
+                            <a href="./workout-stats.html">Workout Statistics</a>
+                        </div>
+                    </div>
+                    <a href="./macro-tracker.html">Macro Tracker</a>
+                    <a id="dashboardNavLink" href="#">Dashboard</a>
+                    <a href="./sign-in.html" class="sign-in-btn">Sign In</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Midnight Fitness</h1>
+                <p class="hero-subtitle">Track your fitness journey with style. Monitor workouts, set goals, and achieve your personal best with our comprehensive fitness platform.</p>
+                <div class="hero-buttons">
+                    <a href="./workouts.html" class="primary-btn">Start Workout</a>
+                    <a href="./macro-tracker.html" class="secondary-btn">Track Macros</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💪</div>
+                <h2>Workout Tracker</h2>
+                <p>Create and customize your workout routines, track your progress, and achieve your fitness goals.</p>
+                <ul>
+                    <li>Custom workout programs</li>
+                    <li>Progress tracking</li>
+                    <li>Exercise library</li>
+                </ul>
+                <a href="./workouts.html" class="feature-link">Explore Workouts →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🥗</div>
+                <h2>Macro Tracker</h2>
+                <p>Optimize your nutrition with our advanced macro tracking features and meal planning tools.</p>
+                <ul>
+                    <li>Personalized macro goals</li>
+                    <li>Meal tracking</li>
+                    <li>Nutrition insights</li>
+                </ul>
+                <a href="./macro-tracker.html" class="feature-link">Track Macros →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h2>Progress Analytics</h2>
+                <p>Monitor your fitness journey with detailed analytics and performance insights.</p>
+                <ul>
+                    <li>Progress tracking</li>
+                    <li>Performance metrics</li>
+                    <li>Goal setting</li>
+                </ul>
+                <a href="./sign-in.html" class="feature-link">Get Started →</a>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Transform Your Fitness Journey?</h2>
+            <p>Join thousands of users who are already achieving their fitness goals with Midnight Fitness.</p>
+            <a href="./sign-in.html" class="cta-button">Sign Up Now</a>
+        </section>
+    </main>
+
+    <script>
+    // User dropdown logic for navbar
+    (function() {
+      const navLinks = document.querySelector('.nav-links');
+      const userInfo = JSON.parse(localStorage.getItem('userInfo') || 'null');
+      const signInBtn = navLinks.querySelector('.sign-in-btn');
+      
+      // Set Dashboard nav link based on sign-in status
+      const dashboardNavLink = document.getElementById('dashboardNavLink');
+      if (userInfo && userInfo.email) {
+        dashboardNavLink.setAttribute('href', './dashboard.html');
+      } else {
+        dashboardNavLink.setAttribute('href', './sign-in.html');
+      }
+      
+      if (userInfo && userInfo.email) {
+        // Remove sign-in button if present
+        if (signInBtn) navLinks.removeChild(signInBtn);
+        // Create user dropdown
+        const userDropdown = document.createElement('div');
+        userDropdown.className = 'user-dropdown';
+        userDropdown.innerHTML = `
+          <button class="user-dropbtn">${userInfo.name ? userInfo.name : userInfo.email} ▼</button>
+          <div class="user-dropdown-content">
+            <a href="#">Email: ${userInfo.email}</a>
+            <a href="#" id="logoutBtn">Sign Out</a>
+          </div>
+        `;
+        navLinks.appendChild(userDropdown);
+        // Log out functionality
+        document.getElementById('logoutBtn').onclick = function() {
+          localStorage.removeItem('userInfo');
+          window.location.reload();
+        };
+      } else {
+        // If not signed in, ensure sign-in button is present
+        if (!signInBtn) {
+          const btn = document.createElement('a');
+          btn.href = './sign-in.html';
+          btn.className = 'sign-in-btn';
+          btn.textContent = 'Sign In';
+          navLinks.appendChild(btn);
+        }
+      }
+    })();
+    </script>
+
+    <style>
+    /* Minimal dropdown styles for navbar */
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropbtn {
+        cursor: pointer;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--midnight-dark, #222c3c);
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        z-index: 1;
+        border-radius: 0 0 8px 8px;
+        overflow: hidden;
+    }
+    .dropdown-content a {
+        color: var(--text-light, #fff);
+        padding: 0.8rem 1.2rem;
+        text-decoration: none;
+        display: block;
+        transition: background 0.2s;
+    }
+    .dropdown-content a:hover {
+        background-color: var(--accent-blue, #2563eb);
+        color: #fff;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover .dropbtn {
+        color: var(--accent-blue, #2563eb);
+    }
+    .user-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .user-dropbtn {
+        background: var(--midnight-blue);
+        color: var(--accent-blue);
+        border: 2px solid var(--accent-blue);
+        border-radius: 20px;
+        padding: 0.4rem 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    .user-dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--midnight-dark);
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        z-index: 1;
+        border-radius: 0 0 8px 8px;
+        overflow: hidden;
+        right: 0;
+    }
+    .user-dropdown-content a {
+        color: var(--text-light);
+        padding: 0.8rem 1.2rem;
+        text-decoration: none;
+        display: block;
+        transition: background 0.2s;
+    }
+    .user-dropdown-content a:hover {
+        background-color: var(--accent-blue);
+        color: #fff;
+    }
+    .user-dropdown:hover .user-dropdown-content {
+        display: block;
+    }
+    .user-dropdown:hover .user-dropbtn {
+        color: #fff;
+        background: var(--accent-blue);
+    }
+    </style>
+</body>
+</html> 

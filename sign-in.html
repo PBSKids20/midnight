@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Midnight Fitness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sign-in.css">
+    <link rel="stylesheet" href="midnight-theme.css">
+    <link rel="stylesheet" href="sign-in-page.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="./index.html">Midnight Fitness</a></div>
+                <div class="nav-links">
+                    <a href="./index.html">Home</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">Workouts ▼</a>
+                        <div class="dropdown-content">
+                            <a href="./workouts.html">Workouts</a>
+                            <a href="./workoutroom.html">Workout Room</a>
+                            <a href="./workout-stats.html">Workout Statistics</a>
+                        </div>
+                    </div>
+                    <a href="./macro-tracker.html">Macro Tracker</a>
+                    <a id="dashboardNavLink" href="#">Dashboard</a>
+                    <a href="./sign-in.html" class="sign-in-btn">Sign In</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="auth-container">
+            <h2>Sign In</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="auth-button">Sign In</button>
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+            </form>
+            <div class="auth-links">
+                <a href="./forgot-password.html">Forgot Password?</a>
+                <span style="color: var(--text-muted); margin: 0 0.5rem;">|</span>
+                <a href="./sign-up.html">Create Account</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            try {
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    errorMessage.style.display = 'none';
+                    successMessage.textContent = 'Login successful! Check your email for confirmation.';
+                    successMessage.style.display = 'block';
+                    // Store user info in localStorage for navbar dropdown
+                    // If backend returns username, use it; otherwise fallback to email only
+                    localStorage.setItem('userInfo', JSON.stringify({ email: email, name: data.name || '', username: data.username || '' }));
+                    // Redirect to dashboard after successful login
+                    setTimeout(() => {
+                        window.location.href = './dashboard.html';
+                    }, 2000);
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message || 'An error occurred during login';
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+            }
+        });
+
+        // User dropdown logic for navbar and dashboard nav link
+        (function() {
+            const navLinks = document.querySelector('.nav-links');
+            const userInfo = JSON.parse(localStorage.getItem('userInfo') || 'null');
+            const signInBtn = navLinks.querySelector('.sign-in-btn');
+            // Set Dashboard nav link based on sign-in status
+            const dashboardNavLink = document.getElementById('dashboardNavLink');
+            if (userInfo && userInfo.email) {
+                dashboardNavLink.setAttribute('href', './dashboard.html');
+            } else {
+                dashboardNavLink.setAttribute('href', './sign-in.html');
+            }
+            if (userInfo && userInfo.email) {
+                if (signInBtn) navLinks.removeChild(signInBtn);
+                const userDropdown = document.createElement('div');
+                userDropdown.className = 'user-dropdown';
+                userDropdown.innerHTML = `
+                    <button class="user-dropbtn">${userInfo.username ? userInfo.username : (userInfo.name ? userInfo.name : userInfo.email)} ▼</button>
+                    <div class="user-dropdown-content">
+                        <a href="#">Email: ${userInfo.email}</a>
+                        <a href="#" id="logoutBtn">Sign Out</a>
+                        <a href="#" id="deleteAccountBtn" class="delete-account-btn">Delete Account</a>
+                    </div>
+                `;
+                navLinks.appendChild(userDropdown);
+                document.getElementById('logoutBtn').onclick = function() {
+                    localStorage.removeItem('userInfo');
+                    window.location.reload();
+                };
+                document.getElementById('deleteAccountBtn').onclick = async function() {
+                    const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+                    if (confirmation) {
+                        try {
+                            const response = await fetch('http://localhost:3000/api/delete-account', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email: userInfo.email })
+                            });
+                            const data = await response.json();
+                            if (data.success) {
+                                alert('Account deleted successfully.');
+                                localStorage.removeItem('userInfo');
+                                window.location.href = './index.html';
+                            } else {
+                                throw new Error(data.message);
+                            }
+                        } catch (error) {
+                            alert('Error deleting account: ' + error.message);
+                        }
+                    }
+                };
+            } else {
+                if (!signInBtn) {
+                    const btn = document.createElement('a');
+                    btn.href = './sign-in.html';
+                    btn.className = 'sign-in-btn';
+                    btn.textContent = 'Sign In';
+                    navLinks.appendChild(btn);
+                }
+            }
+        })();
+    </script>
+</body>
+</html> 

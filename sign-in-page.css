@@ -1,0 +1,40 @@
+/* Minimal dropdown styles for navbar */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropbtn {
+    cursor: pointer;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--midnight-dark, #222c3c);
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    z-index: 1;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+.dropdown-content a {
+    color: var(--text-light, #fff);
+    padding: 0.8rem 1.2rem;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s;
+}
+.dropdown-content a:hover {
+    background-color: var(--accent-blue, #2563eb);
+    color: #fff;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    color: var(--accent-blue, #2563eb);
+} 

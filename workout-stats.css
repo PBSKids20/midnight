@@ -1,0 +1,99 @@
+.stats-container {
+    max-width: 900px;
+    margin: 3rem auto;
+    background: var(--midnight-blue, #1a2233);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+.pr-section {
+    margin-bottom: 2.5rem;
+}
+.pr-title {
+    color: var(--accent-blue, #2563eb);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.pr-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+.pr-card {
+    background: var(--midnight-dark, #222c3c);
+    border-radius: 8px;
+    padding: 1.2rem 2rem;
+    min-width: 220px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.pr-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-light, #fff);
+}
+.pr-value {
+    font-size: 1.3rem;
+    color: var(--accent-blue, #2563eb);
+    font-weight: bold;
+}
+.graph-section {
+    margin-top: 2.5rem;
+}
+.graph-title {
+    color: var(--accent-blue, #2563eb);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.exercise-graph {
+    margin-bottom: 2.5rem;
+    background: var(--midnight-dark, #222c3c);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+canvas {
+    background: #fff;
+    border-radius: 6px;
+}
+/* Minimal dropdown styles for navbar */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropbtn {
+    cursor: pointer;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--midnight-dark, #222c3c);
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    z-index: 1;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+.dropdown-content a {
+    color: var(--text-light, #fff);
+    padding: 0.8rem 1.2rem;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s;
+}
+.dropdown-content a:hover {
+    background-color: var(--accent-blue, #2563eb);
+    color: #fff;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    color: var(--accent-blue, #2563eb);
+} 

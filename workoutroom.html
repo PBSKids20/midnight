@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Room - Midnight Fitness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="workoutroom.css">
+    <link rel="stylesheet" href="midnight-theme.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="./index.html">Midnight Fitness</a></div>
+                <div class="nav-links">
+                    <a href="./index.html">Home</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">Workouts ▼</a>
+                        <div class="dropdown-content">
+                            <a href="./workouts.html">Workouts</a>
+                            <a href="./workoutroom.html">Workout Room</a>
+                            <a href="./workout-stats.html">Workout Statistics</a>
+                        </div>
+                    </div>
+                    <a href="./macro-tracker.html">Macro Tracker</a>
+                    <a id="dashboardNavLink" href="#">Dashboard</a>
+                    <a href="./sign-in.html" class="sign-in-btn">Sign In</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="workout-room-header">
+            <h1>Workout Room</h1>
+            <p>Track your sets, reps, and weights for each exercise</p>
+        </section>
+
+        <div class="workout-container">
+            <div class="exercise-list">
+                <!-- Exercise items will be dynamically added here -->
+            </div>
+
+            <div class="workout-controls">
+                <button id="addExerciseBtn" class="control-btn">Add Exercise</button>
+                <button id="finishWorkoutBtn" class="control-btn">Finish Workout</button>
+            </div>
+        </div>
+
+        <!-- Add Exercise Modal -->
+        <div id="addExerciseModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Add Exercise</h2>
+                <div class="exercise-search">
+                    <input type="text" id="exerciseSearch" placeholder="Search exercises...">
+                    <div id="exerciseResults" class="exercise-results"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Set Tracking Modal -->
+        <div id="setTrackingModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="trackingExerciseName"></h2>
+                <div class="exercise-details">
+                    <div class="video-container">
+                        <iframe id="exerciseVideo" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="exercise-instructions">
+                        <h3>Instructions</h3>
+                        <p id="exerciseInstructions"></p>
+                        <h3>Tips</h3>
+                        <p id="exerciseTips"></p>
+                    </div>
+                </div>
+                <div class="set-tracking">
+                    <div class="set-inputs">
+                        <div class="input-group">
+                            <label>Weight (lbs)</label>
+                            <input type="number" id="weightInput" min="0" step="5">
+                        </div>
+                        <div class="input-group">
+                            <label>Reps</label>
+                            <input type="number" id="repsInput" min="1">
+                        </div>
+                    </div>
+                    <div class="set-history">
+                        <h3>Set History</h3>
+                        <div id="setHistoryList"></div>
+                    </div>
+                    <button id="addSetBtn" class="control-btn">Add Set</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Exercise data with videos and instructions
+        const exerciseData = {
+            'Bench Press': {
+                instructions: 'Lie on a flat bench. Grip the bar slightly wider than shoulder-width. Lower the bar to your mid-chest, then push it back up until your arms are straight.',
+                tips: 'Keep your feet flat on the ground. Maintain a slight arch in your lower back. Don\'t bounce the bar off your chest.',
+                video: 'https://www.youtube.com/embed/rT7DgCr-3pg',
+                difficulty: 'intermediate'
+            },
+            'Pull-ups': {
+                instructions: 'Grab the pull-up bar with hands slightly wider than shoulder-width. Pull yourself up until your chin is over the bar, then lower back down with control.',
+                tips: 'Keep your core tight. Don\'t swing your body. Focus on using your back muscles.',
+                video: 'https://www.youtube.com/embed/eGo4IYlbE5g',
+                difficulty: 'advanced'
+            },
+            'Squats': {
+                instructions: 'Stand with feet shoulder-width apart. Lower your body by bending your knees and hips, then push back up to standing.',
+                tips: 'Keep your chest up. Don\'t let your knees cave inward. Go as low as comfortable.',
+                video: 'https://www.youtube.com/embed/Uv_DKDl7EjA',
+                difficulty: 'intermediate'
+            },
+            'Deadlifts': {
+                instructions: 'Stand with feet hip-width apart. Bend at hips and knees to grab the bar. Stand up by pushing through your heels.',
+                tips: 'Keep your back straight. Don\'t round your shoulders. Drive through your heels.',
+                video: 'https://www.youtube.com/embed/op9kVnSso6Q',
+                difficulty: 'advanced'
+            },
+            'Shoulder Press': {
+                instructions: 'Stand with feet shoulder-width apart. Hold dumbbells at shoulder height. Press the weights overhead until arms are straight, then lower back down.',
+                tips: 'Keep your core tight. Don\'t arch your back. Breathe out as you press up.',
+                video: 'https://www.youtube.com/embed/qEwKCR5JCog',
+                difficulty: 'intermediate'
+            },
+            'Farmer\'s Walk': {
+                instructions: 'Hold heavy dumbbells or kettlebells at your sides. Keep your shoulders back and chest up. Walk forward with short, controlled steps while maintaining good posture.',
+                tips: 'Keep your core tight throughout the movement. Don\'t let your shoulders round forward. Focus on maintaining a strong grip.',
+                video: 'https://www.youtube.com/embed/NH7Xv-7NQNQ',
+                difficulty: 'intermediate'
+            },
+            'Wall Balls': {
+                instructions: 'Stand facing a wall, holding a medicine ball at chest height. Squat down, then explosively stand up while throwing the ball to hit a target on the wall. Catch the ball and repeat.',
+                tips: 'Keep your chest up during the squat. Use your legs to generate power. Don\'t let the ball pull you forward.',
+                video: 'https://www.youtube.com/embed/ryJoFCMNIr8',
+                difficulty: 'intermediate'
+            },
+            'Rope Climbs': {
+                instructions: 'Grab the rope with both hands. Use your legs to help pull yourself up, wrapping the rope around your feet for support. Climb to the top and lower yourself down with control.',
+                tips: 'Keep your core tight. Use your legs to help with the climb. Don\'t slide down the rope.',
+                video: 'https://www.youtube.com/embed/xIIkZd9A30E',
+                difficulty: 'advanced'
+            },
+            'Sled Pushes': {
+                instructions: 'Place your hands on the sled handles, lean forward, and push the sled forward using your legs. Keep your back straight and drive through your heels.',
+                tips: 'Maintain a strong core. Keep your chest up. Push through your legs, not your back.',
+                video: 'https://www.youtube.com/embed/9XRRXaUpnLk',
+                difficulty: 'intermediate'
+            },
+            'HIIT Circuit': {
+                instructions: 'Perform each exercise for the specified work period, then rest for the rest period. Complete all exercises before moving to the next round.',
+                tips: 'Maintain proper form even when fatigued. Stay hydrated. Adjust intensity based on your fitness level.',
+                video: 'https://www.youtube.com/embed/5O1TTduK6mw',
+                difficulty: 'advanced'
+            },
+            'Jump Rope': {
+                instructions: 'Hold the rope handles at your sides. Jump over the rope as it passes under your feet, keeping your jumps small and controlled.',
+                tips: 'Keep your elbows close to your body. Land softly on the balls of your feet. Maintain a steady rhythm.',
+                video: 'https://www.youtube.com/embed/1BZM2Vre5oc',
+                difficulty: 'beginner'
+            },
+            'Mountain Climbers': {
+                instructions: 'Start in a plank position. Alternately bring your knees toward your chest in a running motion, keeping your hips level.',
+                tips: 'Keep your core tight. Don\'t let your hips sag. Maintain a steady pace.',
+                video: 'https://www.youtube.com/embed/nmwgirgXLYM',
+                difficulty: 'intermediate'
+            },
+            'Romanian Deadlifts (RDL)': {
+                instructions: 'Stand with feet hip-width apart. Hinge at your hips, keeping your back straight, and lower the weight along your legs. Return to standing by driving your hips forward.',
+                tips: 'Keep your back straight throughout. Feel the stretch in your hamstrings. Don\'t round your shoulders.',
+                video: 'https://www.youtube.com/embed/JCXUYuzwNrM',
+                difficulty: 'intermediate'
+            },
+            'Bulgarian Split Squats': {
+                instructions: 'Stand with one foot elevated behind you. Lower your body by bending your front knee, keeping your torso upright. Push back up through your front heel.',
+                tips: 'Keep your front knee aligned with your toes. Maintain an upright posture. Don\'t let your back knee touch the ground.',
+                video: 'https://www.youtube.com/embed/2C-uNgKwPLE',
+                difficulty: 'intermediate'
+            },
+            'Face Pulls': {
+                instructions: 'Stand facing a cable machine. Pull the rope toward your face, separating your hands as you pull. Focus on squeezing your shoulder blades together.',
+                tips: 'Keep your elbows high. Don\'t use momentum. Focus on the rear deltoids and upper back.',
+                video: 'https://www.youtube.com/embed/rep-qVOkqgk',
+                difficulty: 'intermediate'
+            },
+            'Lateral Raises': {
+                instructions: 'Stand with dumbbells at your sides. Raise your arms out to the sides until they\'re parallel to the floor, then lower with control.',
+                tips: 'Keep a slight bend in your elbows. Don\'t swing the weights. Focus on the side deltoids.',
+                video: 'https://www.youtube.com/embed/3VcKaXpzqRo',
+                difficulty: 'intermediate'
+            },
+            'Hammer Curls': {
+                instructions: 'Stand with dumbbells at your sides, palms facing inward. Curl the weights up while keeping your palms facing each other, then lower with control.',
+                tips: 'Keep your elbows close to your body. Don\'t swing the weights. Focus on the biceps and forearms.',
+                video: 'https://www.youtube.com/embed/zC3nLlEvin4',
+                difficulty: 'beginner'
+            },
+            'Skull Crushers': {
+                instructions: 'Lie on a bench with a barbell or dumbbells. Lower the weight toward your forehead by bending your elbows, then extend your arms back up.',
+                tips: 'Keep your upper arms stationary. Don\'t let your elbows flare out. Focus on the triceps.',
+                video: 'https://www.youtube.com/embed/d_KZxkY_0cM',
+                difficulty: 'intermediate'
+            },
+            'Push-ups': {
+                instructions: 'Start in a plank position with hands slightly wider than shoulder-width. Lower your body until your chest nearly touches the floor, then push back up.',
+                tips: 'Keep your core tight. Don\'t let your hips sag. Keep your elbows at about 45 degrees.',
+                video: 'https://www.youtube.com/embed/IODxDxX7oi4',
+                difficulty: 'beginner'
+            },
+            'Reverse Flyers': {
+                instructions: 'Stand with feet shoulder-width apart. Hold dumbbells in front of your thighs. Raise your arms out to the sides and back, squeezing your shoulder blades together.',
+                tips: 'Keep a slight bend in your elbows. Don\'t use momentum. Focus on the rear deltoids.',
+                video: 'https://www.youtube.com/embed/6Zv6nwqCPAo',
+                difficulty: 'intermediate'
+            }
+            // Add more exercises as needed
+        };
+
+        // Store all exercises and their set histories
+        let workoutExercises = [];
+
+        // Get user info for user-specific storage
+        const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+        const userEmailKey = userInfo.email ? '_' + userInfo.email : '';
+
+        // Helper: Save all sets to persistent history (user-specific)
+        function saveToExerciseHistory(exerciseName, sets) {
+            let history = JSON.parse(localStorage.getItem('exerciseHistory' + userEmailKey) || '{}');
+            if (!history[exerciseName]) history[exerciseName] = [];
+            history[exerciseName] = history[exerciseName].concat(sets);
+            localStorage.setItem('exerciseHistory' + userEmailKey, JSON.stringify(history));
+        }
+
+        // Helper: Get last 7 days' sets for an exercise (user-specific)
+        function getLast7DaysSets(exerciseName) {
+            let history = JSON.parse(localStorage.getItem('exerciseHistory' + userEmailKey) || '{}');
+            const now = Date.now();
+            const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
+            return (history[exerciseName] || []).filter(set => {
+                return new Date(set.timestamp).getTime() >= sevenDaysAgo;
+            });
+        }
+
+        // Helper: Get PR (highest weight) for an exercise (user-specific)
+        function getPR(exerciseName) {
+            let history = JSON.parse(localStorage.getItem('exerciseHistory' + userEmailKey) || '{}');
+            const sets = history[exerciseName] || [];
+            if (sets.length === 0) return null;
+            return sets.reduce((pr, set) => set.weight > pr.weight ? set : pr, sets[0]);
+        }
+
+        // Update openSetTracking to show last 7 days' history and PR in set history section
+        window.openSetTracking = function(exerciseName) {
+            console.log('Opening set tracking for:', exerciseName);
+            currentExercise = exerciseName;
+            trackingExerciseName.textContent = exerciseName;
+            // Find or create the exercise in workoutExercises
+            let exercise = workoutExercises.find(e => e.name === exerciseName);
+            if (!exercise) {
+                const exData = exerciseData[exerciseName];
+                exercise = {
+                    name: exerciseName,
+                    difficulty: exData.difficulty,
+                    sets: 0,
+                    reps: 0,
+                    lastWeight: 'N/A',
+                    setHistory: []
+                };
+                workoutExercises.push(exercise);
+            }
+            currentExerciseSets = exercise.setHistory;
+            updateSetHistory();
+            // Load exercise details
+            const ex = exerciseData[exerciseName];
+            if (ex) {
+                document.getElementById('exerciseVideo').src = ex.video;
+                document.getElementById('exerciseInstructions').textContent = ex.instructions;
+                document.getElementById('exerciseTips').textContent = ex.tips;
+            } else {
+                console.error('No exercise data found for:', exerciseName);
+            }
+            // Show last 7 days' history and PR in set history section
+            const last7 = getLast7DaysSets(exerciseName);
+            let last7Html = last7.length ? last7.map((set, i) =>
+                `<div class='set-record'><span>${new Date(set.timestamp).toLocaleDateString()} ${set.weight} lbs × ${set.reps} reps</span></div>`
+            ).join('') : '<div class="set-record">No sets in last 7 days.</div>';
+            // Show PR
+            const pr = getPR(exerciseName);
+            let prHtml = pr ? `<div class='set-record'><span>${new Date(pr.timestamp).toLocaleDateString()} - <b>${pr.weight} lbs</b> × ${pr.reps} reps</span></div>` : '<div class="set-record">No PR yet.</div>';
+            // Insert both into setHistoryList
+            setHistoryList.innerHTML = `
+                <h4>Last 7 Days</h4>
+                <div>${last7Html}</div>
+                <h4>Personal Record (P.R.)</h4>
+                <div>${prHtml}</div>
+            `;
+            setTrackingModal.style.display = 'block';
+        };
+
+        // Load workout data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const workoutData = JSON.parse(localStorage.getItem('currentWorkout'));
+            console.log('Loaded workout data:', workoutData);
+            if (workoutData) {
+                // Update workout title
+                document.querySelector('.workout-room-header h1').textContent = workoutData.name;
+                
+                // Clear existing exercises
+                const exerciseList = document.querySelector('.exercise-list');
+                exerciseList.innerHTML = '';
+                
+                // Add exercises to the list
+                workoutData.exercises.forEach(exercise => {
+                    console.log('Adding exercise to list:', exercise);
+                    addExerciseToList(exercise);
+                });
+            }
+        });
+
+        // Get workout data from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const workoutData = JSON.parse(decodeURIComponent(urlParams.get('workout') || '[]'));
+
+        // DOM Elements
+        const exerciseList = document.querySelector('.exercise-list');
+        const addExerciseBtn = document.getElementById('addExerciseBtn');
+        const finishWorkoutBtn = document.getElementById('finishWorkoutBtn');
+        const addExerciseModal = document.getElementById('addExerciseModal');
+        const setTrackingModal = document.getElementById('setTrackingModal');
+        const exerciseSearch = document.getElementById('exerciseSearch');
+        const exerciseResults = document.getElementById('exerciseResults');
+        const trackingExerciseName = document.getElementById('trackingExerciseName');
+        const weightInput = document.getElementById('weightInput');
+        const repsInput = document.getElementById('repsInput');
+        const setHistoryList = document.getElementById('setHistoryList');
+        const addSetBtn = document.getElementById('addSetBtn');
+
+        // Current exercise being tracked
+        let currentExercise = null;
+        let currentExerciseSets = [];
+
+        // Initialize workout room
+        function initializeWorkoutRoom() {
+            if (workoutData.length > 0) {
+                workoutData.forEach(exercise => {
+                    addExerciseToList(exercise);
+                });
+            }
+        }
+
+        // Update addSet to save set to the correct exercise
+        function addSet() {
+            const weight = weightInput.value;
+            const reps = repsInput.value;
+            if (!weight || !reps) {
+                alert('Please enter both weight and reps');
+                return;
+            }
+            const set = {
+                weight: parseInt(weight),
+                reps: parseInt(reps),
+                timestamp: new Date().toLocaleTimeString()
+            };
+            // Find the exercise and add set to its setHistory
+            let exercise = workoutExercises.find(e => e.name === currentExercise);
+            if (!exercise) {
+                const exData = exerciseData[currentExercise];
+                exercise = {
+                    name: currentExercise,
+                    difficulty: exData.difficulty,
+                    sets: 0,
+                    reps: 0,
+                    lastWeight: 'N/A',
+                    setHistory: []
+                };
+                workoutExercises.push(exercise);
+            }
+            exercise.setHistory.push(set);
+            currentExerciseSets = exercise.setHistory;
+            updateSetHistory();
+            updateExerciseListDisplay(currentExercise);
+            // Clear inputs
+            weightInput.value = '';
+            repsInput.value = '';
+        }
+
+        // Update addExerciseToList to use workoutExercises
+        function addExerciseToList(exercise) {
+            // Prevent duplicates
+            if (workoutExercises.some(e => e.name === exercise.name)) return;
+            workoutExercises.push({ ...exercise, setHistory: [] });
+            const exerciseElement = document.createElement('div');
+            exerciseElement.className = 'exercise-item';
+            exerciseElement.innerHTML = `
+                <div class="exercise-info">
+                    <h3>${exercise.name}</h3>
+                    <span class="difficulty ${exercise.difficulty}">${exercise.difficulty}</span>
+                </div>
+                <div class="exercise-sets">
+                    <div class="set-summary">
+                        <span>Sets: ${exercise.sets || 0}</span>
+                        <span>Last Weight: ${exercise.lastWeight || 'N/A'}</span>
+                    </div>
+                    <button class="track-set-btn" onclick="openSetTracking('${exercise.name}')">Track Set</button>
+                </div>
+            `;
+            exerciseList.appendChild(exerciseElement);
+        }
+
+        // Update set history display
+        function updateSetHistory() {
+            // Show last 7 days' history and PR in set history section
+            const last7 = getLast7DaysSets(currentExercise);
+            let last7Html = last7.length ? last7.map((set, i) =>
+                `<div class='set-record'><span>${new Date(set.timestamp).toLocaleDateString()} ${set.weight} lbs × ${set.reps} reps</span></div>`
+            ).join('') : '<div class="set-record">No sets in last 7 days.</div>';
+            // Show PR
+            const pr = getPR(currentExercise);
+            let prHtml = pr ? `<div class='set-record'><span>${new Date(pr.timestamp).toLocaleDateString()} - <b>${pr.weight} lbs</b> × ${pr.reps} reps</span></div>` : '<div class="set-record">No PR yet.</div>';
+            // Insert both into setHistoryList
+            setHistoryList.innerHTML = `
+                <h4>Last 7 Days</h4>
+                <div>${last7Html}</div>
+                <h4>Personal Record (P.R.)</h4>
+                <div>${prHtml}</div>
+            `;
+        }
+
+        // Helper to render exercise results (with optional filter)
+        function renderExerciseResults(filter = '') {
+            const filterLower = filter.trim().toLowerCase();
+            exerciseResults.innerHTML = Object.keys(exerciseData)
+                .filter(name => name.toLowerCase().includes(filterLower))
+                .map(name => {
+                    const ex = exerciseData[name];
+                    return `<div class="exercise-result-item" data-name="${name}">
+                        <strong>${name}</strong> <span class="difficulty ${ex.difficulty}">${ex.difficulty}</span>
+                    </div>`;
+                }).join('');
+        }
+
+        // Event Listeners
+        addExerciseBtn.addEventListener('click', () => {
+            renderExerciseResults();
+            addExerciseModal.style.display = 'block';
+        });
+
+        // Add search functionality
+        exerciseSearch.addEventListener('input', function() {
+            renderExerciseResults(this.value);
+        });
+
+        // Add click event to add exercise to workout list
+        exerciseResults.addEventListener('click', function(e) {
+            const item = e.target.closest('.exercise-result-item');
+            if (item) {
+                const name = item.getAttribute('data-name');
+                const ex = exerciseData[name];
+                // Add to workout list (default sets/reps)
+                addExerciseToList({
+                    name,
+                    difficulty: ex.difficulty,
+                    sets: 3,
+                    reps: 10,
+                    lastWeight: 'N/A'
+                });
+                addExerciseModal.style.display = 'none';
+            }
+        });
+
+        // Update finishWorkoutBtn to save all set histories (user-specific)
+        finishWorkoutBtn.addEventListener('click', () => {
+            // Save workout data to user (localStorage)
+            const workoutData = {
+                exercises: workoutExercises,
+                timestamp: new Date().toISOString()
+            };
+            // Save all sets to persistent history
+            workoutExercises.forEach(ex => {
+                if (ex.setHistory && ex.setHistory.length > 0) {
+                    // Add workout timestamp to each set
+                    ex.setHistory.forEach(set => {
+                        if (!set.timestamp || set.timestamp.length < 12) set.timestamp = new Date().toISOString();
+                    });
+                    saveToExerciseHistory(ex.name, ex.setHistory);
+                }
+            });
+            localStorage.setItem('lastWorkout' + userEmailKey, JSON.stringify(workoutData));
+            // Log workout completion for stats (user-specific)
+            let log = JSON.parse(localStorage.getItem('workoutLog' + userEmailKey) || '[]');
+            log.push(new Date().toISOString());
+            localStorage.setItem('workoutLog' + userEmailKey, JSON.stringify(log));
+            alert('Workout finished and saved!');
+            // Clear exercises from workout list
+            exerciseList.innerHTML = '';
+            workoutExercises = [];
+
+            // Redirect to stats page
+            window.location.href = 'workout-stats.html';
+        });
+
+        addSetBtn.addEventListener('click', addSet);
+
+        // Close modals when clicking the X
+        document.querySelectorAll('.close-modal').forEach(btn => {
+            btn.addEventListener('click', () => {
+                addExerciseModal.style.display = 'none';
+                setTrackingModal.style.display = 'none';
+                document.getElementById('exerciseVideo').src = ''; // Stop video when closing
+            });
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === addExerciseModal) {
+                addExerciseModal.style.display = 'none';
+            }
+            if (e.target === setTrackingModal) {
+                setTrackingModal.style.display = 'none';
+            }
+        });
+
+        // Initialize the workout room
+        initializeWorkoutRoom();
+
+        function updateExerciseListDisplay(exerciseName) {
+            // Find the exercise in workoutExercises
+            const exercise = workoutExercises.find(e => e.name === exerciseName);
+            if (!exercise) return;
+            // Find the exercise item in the DOM
+            const items = document.querySelectorAll('.exercise-item');
+            items.forEach(item => {
+                const nameElem = item.querySelector('h3');
+                if (nameElem && nameElem.textContent === exerciseName) {
+                    // Update set count and last weight
+                    const setSummary = item.querySelector('.set-summary');
+                    const sets = exercise.setHistory.length;
+                    const lastWeight = sets > 0 ? exercise.setHistory[exercise.setHistory.length - 1].weight + ' lbs' : 'N/A';
+                    setSummary.innerHTML = `<span>Sets: ${sets}</span><span>Last Weight: ${lastWeight}</span>`;
+                }
+            });
+        }
+
+        // User dropdown logic for navbar
+        (function() {
+            const navLinks = document.querySelector('.nav-links');
+            const userInfo = JSON.parse(localStorage.getItem('userInfo') || 'null');
+            const signInBtn = navLinks.querySelector('.sign-in-btn');
+            if (userInfo && userInfo.email) {
+                if (signInBtn) navLinks.removeChild(signInBtn);
+                const userDropdown = document.createElement('div');
+                userDropdown.className = 'user-dropdown';
+                userDropdown.innerHTML = `
+                    <button class="user-dropbtn">${userInfo.username ? userInfo.username : (userInfo.name ? userInfo.name : userInfo.email)} ▼</button>
+                    <div class="user-dropdown-content">
+                        <a href="#">Email: ${userInfo.email}</a>
+                        <a href="#" id="logoutBtn">Sign Out</a>
+                        <a href="#" id="deleteAccountBtn" class="delete-account-btn">Delete Account</a>
+                    </div>
+                `;
+                navLinks.appendChild(userDropdown);
+                document.getElementById('logoutBtn').onclick = function() {
+                    localStorage.removeItem('userInfo');
+                    window.location.href = './index.html';
+                };
+                document.getElementById('deleteAccountBtn').onclick = async function() {
+                    const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+                    if (confirmation) {
+                        try {
+                            const response = await fetch('http://localhost:3000/api/delete-account', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email: userInfo.email })
+                            });
+                            const data = await response.json();
+                            if (data.success) {
+                                alert('Account deleted successfully.');
+                                localStorage.removeItem('userInfo');
+                                window.location.href = './index.html';
+                            } else {
+                                throw new Error(data.message);
+                            }
+                        } catch (error) {
+                            alert('Error deleting account: ' + error.message);
+                        }
+                    }
+                };
+            } else {
+                const dashboardNavLink = document.getElementById('dashboardNavLink');
+                dashboardNavLink.setAttribute('href', './sign-in.html');
+                if (!signInBtn) {
+                    const btn = document.createElement('a');
+                    btn.href = './sign-in.html';
+                    btn.className = 'sign-in-btn';
+                    btn.textContent = 'Sign In';
+                    navLinks.appendChild(btn);
+                }
+            }
+        })();
+
+        // Set Dashboard nav link based on sign-in status
+        const dashboardNavLink = document.getElementById('dashboardNavLink');
+        if (userInfo && userInfo.email) {
+            dashboardNavLink.setAttribute('href', './dashboard.html');
+        } else {
+            dashboardNavLink.setAttribute('href', './sign-in.html');
+        }
+    </script>
+    <style>
+    /* Minimal dropdown styles for navbar */
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropbtn {
+        cursor: pointer;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--midnight-dark, #222c3c);
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        z-index: 1;
+        border-radius: 0 0 8px 8px;
+        overflow: hidden;
+    }
+    .dropdown-content a {
+        color: var(--text-light, #fff);
+        padding: 0.8rem 1.2rem;
+        text-decoration: none;
+        display: block;
+        transition: background 0.2s;
+    }
+    .dropdown-content a:hover {
+        background-color: var(--accent-blue, #2563eb);
+        color: #fff;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover .dropbtn {
+        color: var(--accent-blue, #2563eb);
+    }
+    </style>
+</body>
+</html> 

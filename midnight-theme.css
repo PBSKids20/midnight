@@ -1,0 +1,143 @@
+:root {
+    --midnight-dark: #0a192f;
+    --midnight-blue: #112240;
+    --midnight-light: #1d3461;
+    --accent-blue: #3a86ff;
+    --text-light: #e6f1ff;
+    --text-muted: #8892b0;
+    --button-red: #ff3b3b;
+}
+
+/* Midnight theme styles */
+body {
+    background-color: var(--midnight-dark);
+    color: var(--text-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+    background-color: var(--midnight-blue);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo a {
+    color: var(--accent-blue);
+}
+
+.nav-links a {
+    color: var(--text-light);
+}
+
+.nav-links a:hover {
+    color: var(--accent-blue);
+}
+
+.sign-in-btn {
+    color: var(--accent-blue) !important;
+    border: 2px solid var(--accent-blue);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    z-index: 1;
+    font-size: 0.9rem;
+}
+
+.sign-in-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--accent-blue);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.sign-in-btn:hover {
+    color: var(--text-light) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(58, 134, 255, 0.3);
+}
+
+.sign-in-btn:hover::before {
+    width: 100%;
+}
+
+.sign-in-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(58, 134, 255, 0.2);
+}
+
+.workout-card {
+    background-color: var(--midnight-blue);
+    border: 1px solid var(--midnight-light);
+}
+
+.card-content h2 {
+    color: var(--text-light);
+}
+
+.card-description {
+    color: var(--text-muted);
+}
+
+.workout-button {
+    background-color: var(--button-red);
+    color: var(--text-light);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.workout-button:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 59, 59, 0.3);
+}
+
+.exercise {
+    background-color: #0f1f3d;
+    border: 1px solid var(--accent-blue);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.exercise h3, .exercise h4 {
+    color: var(--text-light);
+}
+
+.modal-content {
+    background-color: var(--midnight-blue);
+    color: var(--text-light);
+}
+
+.detail-section h3 {
+    color: var(--accent-blue);
+}
+
+.exercise-option {
+    background-color: var(--midnight-light);
+    border: 1px solid var(--accent-blue);
+}
+
+.exercise-option:hover {
+    background-color: var(--midnight-blue);
+}
+
+.exercise-option.selected {
+    background-color: rgba(58, 134, 255, 0.1);
+    border: 2px solid var(--accent-blue);
+}
+
+.setting-group input {
+    background-color: var(--midnight-dark);
+    color: var(--text-light);
+    border: 1px solid var(--accent-blue);
+} 
